@@ -1,0 +1,231 @@
+/* --- TEMA: "EL ESCRITORIO DEL ARTESANO" --- */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f5f7;
+  color: #172b4d;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: #172b4d;
+}
+
+#navbar-user-name {
+  color: #5e6c84;
+  font-weight: 500;
+}
+
+/* --- BOTONES --- */
+.btn-primary {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+  border-color: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- TABLA --- */
+.table {
+  border-spacing: 0 0.5rem;
+  border-collapse: separate;
+  table-layout: fixed; /* fuerza que las columnas sigan los anchos del colgroup */
+}
+
+.table thead th {
+  border: 0;
+  color: #5e6c84;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* --- ESTILOS PARA EL DESLIZAMIENTO TIPO GMAIL --- */
+
+.order-row-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Capa Inferior: Las acciones */
+.order-actions-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: #f8f9fa; /* Un fondo gris claro */
+}
+
+/* Capa Superior: El contenido */
+.order-content {
+  position: relative; /* Para que se ponga por encima */
+  z-index: 2; /* Importante para que tape las acciones */
+  background-color: #fff; /* Fondo blanco para la fila */
+  display: grid;
+  /* Ajuste en porcentajes para alinearse mejor con las cabeceras y evitar desplazamientos raros */
+  grid-template-columns: 18% 44% 16% 13% 9%;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); /* Animación suave */
+}
+
+.order-cell {
+  padding: 0 0.5rem;
+}
+
+/* ¡LA MAGIA! Al pasar el ratón por el wrapper... */
+.order-row-wrapper:hover .order-content {
+  /* ...deslizamos la capa de contenido hacia la izquierda. */
+  /* Ajusta este valor al ancho del bloque de acciones. Si ves que tapa contenido, reduce este valor. */
+  transform: translateX(-180px);
+  cursor: pointer;
+}
+
+/* Hacemos que la fila sobre la que estamos tenga un fondo blanco para que no se vea la de abajo */
+.order-row-wrapper:hover .order-content {
+  background-color: #fff;
+}
+.table > tbody > tr:hover {
+  background-color: transparent; /* Quitamos el hover por defecto de Bootstrap */
+}
+
+/* Estilo para los botones de icono (no cambia) */
+.btn-icon {
+  background-color: transparent;
+  border: none;
+  color: #5e6c84;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+.btn-icon:hover { color: #4f46e5; }
+.btn-icon.text-danger:hover { color: #dc3545; }
+
+/* --- Leyenda flotante (discreta) --- */
+.legend-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #4f46e5;
+  box-shadow: 0 6px 18px rgba(31, 41, 55, 0.12);
+  z-index: 1100;
+  border: 1px solid rgba(16,24,40,0.06);
+  cursor: pointer;
+}
+.legend-toggle:hover { transform: translateY(-2px); }
+
+.legend-card {
+  position: fixed;
+  right: 1rem;
+  bottom: 5.25rem; /* justo encima del botón */
+  width: 260px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  z-index: 1099;
+  display: none; /* oculto por defecto */
+  font-size: 0.9rem;
+}
+.legend-card.show {
+  display: block;
+}
+.legend-card ul { padding-left: 1rem; }
+.legend-card li { margin-bottom: 0.35rem; }
+.legend-card i { width: 1.05rem; text-align: center; }
+
+/* =====================================================================
+   == PULIDO FINAL: RESPONSIVE PARA MÓVILES Y TABLETS
+   ===================================================================== */
+
+/* Estas reglas SÓLO se aplicarán en pantallas de 768px o menos */
+@media (max-width: 768px) {
+
+  /* Ocultamos la cabecera de la tabla, ya no la necesitamos */
+  .table thead {
+    display: none;
+  }
+
+  /* La capa de contenido ya no se desliza, ocupa todo el ancho */
+  .order-content {
+    transform: none !important; /* Quitamos la animación de hover */
+    display: flex;
+    flex-direction: column; /* Apilamos los elementos verticalmente */
+    align-items: flex-start; /* Alineamos a la izquierda */
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+  }
+  
+  /* La fila de la tabla ahora es solo un contenedor */
+  .table > tbody > tr {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .table > tbody > tr > td {
+    display: block;
+    padding: 0;
+  }
+
+  /* Cada "celda" ahora tiene más espacio y un pseudo-elemento para la etiqueta */
+  .order-cell {
+    width: 100%;
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between; /* Etiqueta a la izq, valor a la der */
+    align-items: center;
+    border-bottom: 1px solid #f4f5f7;
+  }
+  .order-cell:last-child {
+    border-bottom: none;
+  }
+  
+  /* Aquí está el truco: creamos las etiquetas (Cliente, Estado, etc.) */
+  .order-cell:before {
+    content: attr(data-label); /* Leemos la etiqueta de un atributo que añadiremos con JS */
+    font-weight: 600;
+    color: #5e6c84;
+  }
+
+  /* El panel de acciones ahora es visible y está debajo del contenido */
+  .order-actions-background {
+    position: static;
+    transform: none;
+    background-color: transparent;
+    padding: 0.5rem 0 0 0;
+    width: 100%;
+    justify-content: space-around; /* Distribuimos los botones */
+  }
+
+  .order-row-wrapper {
+    overflow: visible;
+  }
+  
+  .order-row-wrapper:hover .order-content {
+     transform: none; /* Desactivamos el deslizamiento en móvil */
+  }
+}
+

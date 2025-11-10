@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Pedido</title>
+
+  <!-- Todos nuestros estilos y scripts (igual que en dashboard.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ======================= NAVBAR (Reutilizada) ======================= -->
+  <nav class="navbar shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard.html">
+        <i class="fa-solid fa-box-open me-2"></i>
+        Gestor de Pedidos
+      </a>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="img/0587496e-6e1f-4e5b-a60f-19c3cf931a3d-removebg-preview.png" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
+          <strong id="navbar-user-name">Cargando...</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
+          <li><a class="dropdown-item" href="#" id="logout-button"><i class="fa-solid fa-right-from-bracket me-2"></i>Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- ==================================================================== -->
+
+  <!-- ======================= CONTENIDO DEL DETALLE ======================= -->
+  <main class="container mt-4">
+    <div id="detalle-pedido-container">
+      <!-- Los datos del pedido se cargarán aquí con JS -->
+      <p>Cargando detalles del pedido...</p>
+    </div>
+
+    <!-- Sección de la Bitácora / Historial -->
+    <hr class="my-4">
+    <h3 class="mb-3">
+      <i class="fa-solid fa-clock-rotate-left me-2"></i>Detalles del Pedido
+    </h3>
+    
+    <!-- Formulario para añadir una nueva nota -->
+    <form id="form-nueva-nota" class="mb-4">
+      <div class="mb-2">
+        <label for="nueva-nota-texto" class="form-label">Añadir actualización o nota:</label>
+        <textarea class="form-control" id="nueva-nota-texto" rows="2" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-secondary btn-sm">Guardar Nota</button>
+    </form>
+
+    <!-- Lista donde se mostrará el historial de notas -->
+    <ul class="list-group" id="lista-historial">
+      <li class="list-group-item">Cargando historial...</li>
+    </ul>
+
+    <a href="dashboard.html" class="btn btn-outline-secondary mt-4">← Volver al Panel</a>
+  </main>
+  <!-- =================================================================== -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

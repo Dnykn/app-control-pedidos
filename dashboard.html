@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Control de Pedidos</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome y Bootstrap -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Nuestro NUEVO CSS -->
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- ======================= NAVBAR ======================= -->
+  <nav class="navbar shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="dashboard.html">
+        <i class="fa-solid fa-box-open me-2"></i>
+        Gestor de Pedidos
+      </a>
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="img/0587496e-6e1f-4e5b-a60f-19c3cf931a3d-removebg-preview.png" alt="Avatar" width="32" height="32" class="rounded-circle me-2">
+          <strong id="navbar-user-name">Cargando...</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
+          <li><a class="dropdown-item" href="#" id="logout-button"><i class="fa-solid fa-right-from-bracket me-2"></i>Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- ====================================================== -->
+
+  <!-- ======================= CONTENIDO PRINCIPAL (CON PESTAÑAS) ======================= -->
+  <main class="container mt-4">
+    
+    <!-- Encabezado (no cambia) -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="h2" id="dashboard-title">Panel de Acciones</h1>
+      <button class="btn btn-primary" id="btn-nuevo-pedido">
+        <i class="fa-solid fa-plus me-2"></i>Nuevo Pedido
+      </button>
+    </div>
+
+    <!-- Navegación de Pestañas -->
+    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pedidos-tab" data-bs-toggle="tab" data-bs-target="#pedidos" type="button" role="tab" aria-controls="pedidos" aria-selected="true">
+          <i class="fa-solid fa-box-open me-2"></i>Pedidos
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="clientes-tab" data-bs-toggle="tab" data-bs-target="#clientes" type="button" role="tab" aria-controls="clientes" aria-selected="false">
+          <i class="fa-solid fa-users me-2"></i>Clientes (Fiado)
+        </button>
+      </li>
+    </ul>
+
+    <!-- Contenido de las Pestañas -->
+    <div class="tab-content" id="myTabContent">
+      
+      <!-- Pestaña de Pedidos -->
+      <div class="tab-pane fade show active" id="pedidos" role="tabpanel" aria-labelledby="pedidos-tab">
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead>
+                  <!-- (La cabecera de la tabla de pedidos no cambia) -->
+                  <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Producto / Descripción</th>
+                    <th scope="col">Fecha de Entrega</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col" class="text-end">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-pedidos">
+                  <!-- Las filas de los pedidos se cargarán aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pestaña de Clientes -->
+      <div class="tab-pane fade" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
+  
+  <!-- NUEVO: Botón para añadir clientes -->
+  <div class="text-end mb-3">
+    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNuevoCliente">
+      <i class="fa-solid fa-user-plus me-2"></i>Añadir Nuevo Cliente
+    </button>
+  </div>
+
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre del Cliente</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Saldo Actual (C$)</th>
+                    <th scope="col" class="text-end">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-clientes">
+                  <!-- Las filas de los clientes se cargarán aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <!-- ===================================================================================== -->
+
+  <!-- Leyenda discreta: botón flotante + tarjeta -->
+  <div id="legend-card" class="legend-card" aria-hidden="true">
+    <strong>Leyenda — Acciones rápidas</strong>
+    <ul class="small mb-0 mt-2">
+      <li><i class="fa-solid fa-eye me-2"></i>Ver — Detalle / Editar pedido</li>
+      <li><i class="fa-solid fa-spinner me-2"></i>En proceso — Marcar pedido en curso</li>
+      <li><i class="fa-solid fa-clock me-2"></i>Pendiente — Marcar como pendiente</li>
+      <li><i class="fa-solid fa-check-circle me-2"></i>Entregado — Marcar como finalizado</li>
+      <li><i class="fa-solid fa-trash me-2 text-danger"></i>Eliminar — Borrar pedido (irreversible)</li>
+    </ul>
+    <div class="text-end small text-muted mt-2">Accesible desde la fila al pasar el ratón</div>
+  </div>
+  <button id="legend-toggle" class="legend-toggle" aria-label="Leyenda de acciones" title="Leyenda de acciones"><i class="fa-solid fa-circle-info"></i></button>
+
+  <!-- ======================= MODAL DE NUEVO PEDIDO ======================= -->
+<div class="modal fade" id="modalNuevoPedido" tabindex="-1" aria-labelledby="modalNuevoPedidoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalNuevoPedidoLabel">
+          <i class="fa-solid fa-plus me-2"></i>Registrar Nuevo Pedido
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Formulario de Nuevo Pedido -->
+        <form id="form-nuevo-pedido">
+          <div class="mb-3">
+            <label for="cliente-nombre" class="form-label">Nombre del Cliente</label>
+            <input type="text" class="form-control" id="cliente-nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="pedido-descripcion" class="form-label">Producto / Descripción del Pedido</label>
+            <textarea class="form-control" id="pedido-descripcion" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="pedido-fecha" class="form-label">Fecha de Entrega</label>
+            <input type="date" class="form-control" id="pedido-fecha" required>
+          </div>
+          
+          <!-- Los botones están en el footer del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- =================================================================== -->
+<!-- ======================= MODAL DE NUEVO CLIENTE ======================= -->
+<div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalNuevoClienteLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalNuevoClienteLabel">Registrar Nuevo Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-nuevo-cliente">
+          <div class="mb-3">
+            <label for="nuevo-cliente-nombre" class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" id="nuevo-cliente-nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="nuevo-cliente-telefono" class="form-label">Teléfono (Opcional)</label>
+            <input type="tel" class="form-control" id="nuevo-cliente-telefono">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cliente</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ==================================================================== -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
